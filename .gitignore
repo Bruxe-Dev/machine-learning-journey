@@ -1,0 +1,26 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache / build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# IDEs
+.idea/
+.vscode/
+
+# Generated outputs (regenerable by running the scripts)
+plots/
+*.png
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Secrets / local configuration
+.env
+*.env
+credentials*.json
