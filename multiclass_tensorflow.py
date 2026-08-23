@@ -18,7 +18,7 @@ X_test = X_test.astype("float32") / 255.0
 
 # Make a model 
 
-model  = Sequential ([
+model = Sequential ([
     Flatten(input_shape=(28,28)),
     Dense(units=128, activation ="relu"),
     Dense(units=64, activation = "relu"),
