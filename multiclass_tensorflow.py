@@ -102,6 +102,6 @@ plt.ylabel("Loss")
 plt.legend()
 plt.grid()
 
-plt.savefig("plots-multiclass-classification/accuracy.png")
+plt.savefig("plots-multiclass-classification/validation_loss.png")
 
 plt.show()
