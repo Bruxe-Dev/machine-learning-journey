@@ -25,3 +25,20 @@ model  = Sequential ([
     Dense(units=10)
 ])
 
+model.summary()
+
+model.compile(
+    optimizer = tf.keras.optimizers.Adam(
+        learning_rate = 0.001
+    ),
+    loss = tf.keras.losses.SparseCategorialCrossentropy,
+    metrics = ["accuracy"]
+)
+
+model.fit (
+    X_train,
+    Y_train,
+    epoch = 20,
+    batch_size = 128,
+    validation_data = (X_test,Y_test)
+)
