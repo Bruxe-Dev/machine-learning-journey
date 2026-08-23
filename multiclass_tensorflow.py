@@ -1,6 +1,6 @@
 import tensorflow as tf 
 import numpy as np 
-import matplotlib_plt as plt 
+import matplotlib.pyplot as plt 
 
 from tensorflow.keras import Input
 from tensorflow.keras import Sequential
