@@ -6,6 +6,7 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense 
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.datasets import mnist 
+from tensorflow.nn import softmax
 
 (X_train, Y_train), (X_test, Y_test)= mnist.load_data()
 print(X_train.shape)
@@ -42,3 +43,23 @@ model.fit (
     batch_size = 128,
     validation_data = (X_test,Y_test)
 )
+
+test_loss, test_accuracy = model.evaluate(
+    X_test,
+    Y_test
+)
+
+print(f"Test accuracy: {test_accuracy * 100:.2f}%")
+
+logits = model.predict(X_test)
+
+predictions = np.argmax(
+    logits,
+    axis=1
+)
+
+print("\nPredictions:")
+print(predictions[:10])
+
+print("\nActual:")
+print(Y_test[:10])
