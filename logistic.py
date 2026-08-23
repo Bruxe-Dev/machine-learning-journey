@@ -71,7 +71,7 @@ plt.xlabel("Epoch")
 plt.ylabel("Loss")
 
 plt.title("Training Loss")
-plt.savefig("plots/training_loss.png")
+plt.savefig("plots-binary-classification/training_loss.png")
 plt.show()
 
 # Accuracyu plot
@@ -81,5 +81,5 @@ plt.xlabel("Epoch")
 plt.ylabel("Accuracy")
 
 plt.title("Training Accuracy")
-plt.savefig("plots/training_accuracy.png")
+plt.savefig("plots-binary-classification/training_accuracy.png")
 plt.show()

@@ -1,5 +1,6 @@
 import tensorflow as tf 
 import numpy as np 
+import matplotlib_plt as plt 
 
 from tensorflow.keras import Input
 from tensorflow.keras import Sequential
@@ -34,7 +35,7 @@ model.compile(
     metrics = ["accuracy"]
 )
 
-model.fit (
+history = model.fit (
     X_train,
     Y_train,
     epochs = 20,
@@ -61,3 +62,46 @@ print(predictions[:10])
 
 print("\nActual:")
 print(Y_test[:10])
+
+plt.figure(figsize=(10, 5))
+
+plt.plot(
+    history.history["accuracy"],
+    label="Training Accuracy"
+)
+
+plt.plot(
+    history.history["val_accuracy"],
+    label="Validation Accuracy"
+)
+
+plt.title("Training and Validation Accuracy")
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy")
+plt.legend()
+plt.grid()
+plt.savefig("plots-multiclass-classification/accuracy.png")
+
+plt.show()
+
+plt.figure(figsize=(10, 5))
+
+plt.plot(
+    history.history["loss"],
+    label="Training Loss"
+)
+
+plt.plot(
+    history.history["val_loss"],
+    label="Validation Loss"
+)
+
+plt.title("Training and Validation Loss")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.legend()
+plt.grid()
+
+plt.savefig("plots-multiclass-classification/accuracy.png")
+
+plt.show()
