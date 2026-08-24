@@ -4,7 +4,7 @@ def sigmoid(z):
     return 1/(1+np.exp(-z))
 
 def binaryCrossentropy(y,p):
-    epsilon = 1e15
+    epsilon = 1e-15
     p = np.clip(p, epsilon, 1-epsilon)
 
     return  -(y *np.log(p) + (1-y) * np.log(1-p))
