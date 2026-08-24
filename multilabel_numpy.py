@@ -31,6 +31,9 @@ Z = X @ W + b
 
 p = sigmoid(Z)
 
+epsilon = 1e-15
+p = np.clip(p, epsilon, 1-epsilon)
+
 print("Z:")
 print(Z)
 
@@ -41,4 +44,8 @@ loss = binaryCrossentropy(Y,p)
 
 print("Loss: ")
 print(loss)
+
+cost = np.mean(loss)
+print("cost: ")
+print(cost)
 #predictions = (p > 0.5).astype(int)
