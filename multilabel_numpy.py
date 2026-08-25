@@ -81,7 +81,6 @@ predictions = (P >= 0.5).astype(int)
 print("\n" + "=" * 50)
 print("FINAL RESULTS")
 print("=" * 50)
-
 print("\nFinal Weights:")
 print(W)
 
