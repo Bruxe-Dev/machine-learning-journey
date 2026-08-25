@@ -6,9 +6,6 @@ from tensorflow.keras import Input, Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.losses import BinaryCrossentropy
 
-def sigmoid(z):
-    return 1/(1+np.exp(-z))
-
 data = pd.read_csv("data/animals_multilabel.csv")
 print(data.head(10))
 
@@ -48,7 +45,7 @@ model.fit(
 
 logits = model(X)
 
-P = sigmoid(logits)
+P = tf.sigmoid(logits)
 predictions = (P >=0.5).astype(int)
 
 print("\n" + "=" * 50)
