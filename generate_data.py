@@ -3,36 +3,175 @@ import pandas as pd
 
 np.random.seed(42)
 
-data = pd.read_csv("data/coffe_dataset.csv")
-
-X0 = data[data["overcooked"] == 0][["temperature", "time"]].values
-X1 = data[data["overcooked"] == 1][["temperature", "time"]].values
-
 n = 250
 
-mean0, std0 = X0.mean(axis=0), X0.std(axis=0)
-mean1, std1 = X1.mean(axis=0), X1.std(axis=0)
+# ==================================================
+# [1, 0] -> CAT
+# ==================================================
 
-gen0 = np.random.normal(loc=mean0, scale=std0 * 0.5, size=(n, 2))
-gen0[:, 0] = np.clip(gen0[:, 0], 100, 250)
-gen0[:, 1] = np.clip(gen0[:, 1], 3, 18)
-gen0 = np.round(gen0, 1)
-
-gen1 = np.random.normal(loc=mean1, scale=std1 * 0.5, size=(n, 2))
-gen1[:, 0] = np.clip(gen1[:, 0], 200, 450)
-gen1[:, 1] = np.clip(gen1[:, 1], 14, 40)
-gen1 = np.round(gen1, 1)
-
-new_data = pd.DataFrame(
-    np.vstack([
-        np.column_stack([gen0, np.zeros(n, dtype=int)]),
-        np.column_stack([gen1, np.ones(n, dtype=int)])
-    ]),
-    columns=["temperature", "time", "overcooked"]
+cat_weight = np.random.normal(
+    loc=4.5,
+    scale=0.7,
+    size=n
 )
 
-combined = pd.concat([data, new_data], ignore_index=True)
-combined = combined.sample(frac=1, random_state=42).reset_index(drop=True)
+cat_size = np.random.normal(
+    loc=35,
+    scale=5,
+    size=n
+)
 
-combined.to_csv("data/coffe_dataset.csv", index=False)
-print(f"Original: {len(data)} rows | Generated: {len(new_data)} rows | Total: {len(combined)} rows")
+cat_weight = np.clip(cat_weight, 2.5, 6.5)
+cat_size = np.clip(cat_size, 25, 45)
+
+cat = np.column_stack([
+    cat_weight,
+    cat_size,
+    np.ones(n, dtype=int),
+    np.zeros(n, dtype=int)
+])
+
+
+# ==================================================
+# [0, 1] -> DOG
+# ==================================================
+
+dog_weight = np.random.normal(
+    loc=15,
+    scale=2.5,
+    size=n
+)
+
+dog_size = np.random.normal(
+    loc=65,
+    scale=8,
+    size=n
+)
+
+dog_weight = np.clip(dog_weight, 9, 22)
+dog_size = np.clip(dog_size, 45, 80)
+
+dog = np.column_stack([
+    dog_weight,
+    dog_size,
+    np.zeros(n, dtype=int),
+    np.ones(n, dtype=int)
+])
+
+
+# ==================================================
+# [1, 1] -> CAT + DOG
+# ==================================================
+
+both_weight = np.random.normal(
+    loc=10,
+    scale=1.5,
+    size=n
+)
+
+both_size = np.random.normal(
+    loc=50,
+    scale=6,
+    size=n
+)
+
+both_weight = np.clip(both_weight, 7, 14)
+both_size = np.clip(both_size, 38, 65)
+
+both = np.column_stack([
+    both_weight,
+    both_size,
+    np.ones(n, dtype=int),
+    np.ones(n, dtype=int)
+])
+
+
+# ==================================================
+# [0, 0] -> NEITHER
+# ==================================================
+
+neither_weight = np.random.normal(
+    loc=2,
+    scale=0.5,
+    size=n
+)
+
+neither_size = np.random.normal(
+    loc=15,
+    scale=3,
+    size=n
+)
+
+neither_weight = np.clip(neither_weight, 0.5, 3)
+neither_size = np.clip(neither_size, 8, 22)
+
+neither = np.column_stack([
+    neither_weight,
+    neither_size,
+    np.zeros(n, dtype=int),
+    np.zeros(n, dtype=int)
+])
+
+
+# ==================================================
+# Combine dataset
+# ==================================================
+
+dataset = np.vstack([
+    cat,
+    dog,
+    both,
+    neither
+])
+
+
+# ==================================================
+# Create DataFrame
+# ==================================================
+
+data = pd.DataFrame(
+    dataset,
+    columns=[
+        "weight",
+        "size",
+        "cat",
+        "dog"
+    ]
+)
+
+
+# Round feature values
+data["weight"] = data["weight"].round(2)
+data["size"] = data["size"].round(2)
+
+
+# Shuffle dataset
+data = data.sample(
+    frac=1,
+    random_state=42
+).reset_index(drop=True)
+
+
+# ==================================================
+# Save CSV
+# ==================================================
+
+data.to_csv(
+    "data/animals_multilabel.csv",
+    index=False
+)
+
+
+# ==================================================
+# Information
+# ==================================================
+
+print(f"Generated {len(data)} samples")
+
+print("\nLabel combinations:")
+print(
+    data[["cat", "dog"]].value_counts()
+)
+
+print("\nFirst 10 samples:")
+print(data.head(10))
