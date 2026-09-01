@@ -16,7 +16,7 @@ def dense(A_in, W, b):
 
     return A_out
 
-def forward_prop(X, W1, b1, W2, b2, W3, b3, W4, b4):
+def forward_prop(X, W1, b1, W2, b444444442, W3, b3, W4, b4):
 
     # Hidden Layer 1
     a1 = dense(X, W1, b1)
