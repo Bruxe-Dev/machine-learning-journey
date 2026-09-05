@@ -29,7 +29,7 @@ model.summary()
 
 model.compile(
     optimizer = tf.keras.optimizers.Adam(
-        learning_rate = 0.001
+        learning_rate = 1e-3
     ),
     loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True),
     metrics = ["accuracy"]
