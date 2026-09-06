@@ -1,4 +1,4 @@
-import numpy 
+import numpy as np
 
 X = np.array([1,2,3,4,5])
 Y = np.array([2,5,10,17,24])
@@ -17,18 +17,18 @@ def compute_cost_l2(x_poly,y,W,b):
     l2_penalty = (lambda_ / (2 * m)) * np.sum(W ** 2)
     ordinary_cost = (1/(2 * m)) * np.sum(error ** 2)
 
-    total_cost = ordinary_cost + l2_penalty
+    cost = ordinary_cost + l2_penalty
 
-    return cost 
+    return cost
 
 x_poly = np.column_stack([
-    x,
-    x**2,
-    x**3,
-    x**4
+    X,
+    X**2,
+    X**3,
+    X**4
 ])
 
 
-cost = compute_cost(x_poly,Y,W,b)
+cost = compute_cost_l2(x_poly,Y,W,b)
 
 print(f"Cost: {cost}")
