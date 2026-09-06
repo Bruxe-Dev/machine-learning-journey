@@ -6,7 +6,7 @@ Y = np.array([2, 5, 10, 17, 24])
 W = np.array([1.0, 0.5, 0.1, 0.3])
 b = 1.0
 
-lambda_ = 1.0
+lambda_ = 0.0
 alpha = 0.000001
 epochs = 1000
 
