@@ -7,6 +7,8 @@ W = np.array([1.0, 0.5, 0.1, 0.3])
 b = 1.0
 
 lambda_ = 1.0
+alpha = 0.000001
+epochs = 1000
 
 
 def compute_cost_l2(x_poly, y, W, b, lambda_):
@@ -57,14 +59,42 @@ cost = compute_cost_l2(
     lambda_
 )
 
-dj_dw, dj_db = compute_gradient_l2(
+def gradient_descent_l2(
     x_poly,
-    Y,
+    y,
+    epochs,
+    alpha,
     W,
     b,
     lambda_
-)
+    ):
+
+    dj_dw, dj_db = compute_gradient_l2(
+        x_poly,
+        Y,
+        W,
+        b,
+        lambda_
+    )
+
+    W = W - (alpha * dj_dw)
+    b = b - (alpha * dj_db)
+
+    return W, b
+
+W,b = gradient_descent_l2(
+    x_poly,
+    y,
+    epochs,
+    alpha,
+    W,
+    b,
+    lambda_
+    )
 
 print(f"Cost: {cost}")
 print(f"dj_dw: {dj_dw}")
 print(f"dj_db: {dj_db}")
+
+print(f"W = {W}")
+print(f"b = {b}")
