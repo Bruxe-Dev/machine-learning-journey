@@ -69,22 +69,23 @@ def gradient_descent_l2(
     lambda_
     ):
 
-    dj_dw, dj_db = compute_gradient_l2(
+    for _ in range(epochs):
+        dj_dw, dj_db = compute_gradient_l2(
         x_poly,
         Y,
         W,
         b,
         lambda_
-    )
+        )
 
-    W = W - (alpha * dj_dw)
-    b = b - (alpha * dj_db)
+        W = W - (alpha * dj_dw)
+        b = b - (alpha * dj_db)
 
     return W, b
 
 W,b = gradient_descent_l2(
     x_poly,
-    y,
+    Y,
     epochs,
     alpha,
     W,
@@ -93,8 +94,6 @@ W,b = gradient_descent_l2(
     )
 
 print(f"Cost: {cost}")
-print(f"dj_dw: {dj_dw}")
-print(f"dj_db: {dj_db}")
 
 print(f"W = {W}")
 print(f"b = {b}")
