@@ -40,6 +40,6 @@ x_poly = np.column_stack([
 ])
 
 
-cost = compute_cost_l2(x_poly,Y,W,b)
+cost = compute_cost_l2(x_poly,Y,W,b,lambda_)
 
 print(f"Cost: {cost}")
