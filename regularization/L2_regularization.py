@@ -1,20 +1,25 @@
 import numpy 
 
-def compute_cost(x_poly,y,W,b):
+X = np.array([1,2,3,4,5])
+Y = np.array([2,5,10,17,24])
+W = np.array([1.0,0.5,0.1,0.3])
+b = 1.0
+
+lambda_ = 1.0
+
+def compute_cost_l2(x_poly,y,W,b):
     m = x_poly.shape[0]
 
     predictions = np.matmul(x_poly,W)+b
 
     error = predictions - y
 
-    cost = (1/(2 * m)) * np.sum(error **2)
+    l2_penalty = (lambda_ / (2 * m)) * np.sum(W ** 2)
+    ordinary_cost = (1/(2 * m)) * np.sum(error ** 2)
 
-    return cost
+    total_cost = ordinary_cost + l2_penalty
 
-X = np.array([1,2,3,4,5])
-Y = np.array([2,5,10,17,24])
-W = np.array([1.0,0.5,0.1,0.3])
-b = 1.0
+    return cost 
 
 x_poly = np.column_stack([
     x,
