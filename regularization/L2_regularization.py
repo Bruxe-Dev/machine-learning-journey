@@ -7,7 +7,7 @@ b = 1.0
 
 lambda_ = 1.0
 
-def compute_cost_l2(x_poly,y,W,b):
+def compute_cost_l2(x_poly,y,W,b,lambda_):
     m = x_poly.shape[0]
 
     predictions = np.matmul(x_poly,W)+b
@@ -20,6 +20,17 @@ def compute_cost_l2(x_poly,y,W,b):
     cost = ordinary_cost + l2_penalty
 
     return cost
+
+def compute_gradient_l2(x_poly,y,errors,lambda_,w):
+    m = x_poly.shape[0]
+
+    dj_dw = (1/m) * np.matmul(errors) * x_poly
+
+    dj_dw += (lambda_ / m) * w
+
+    dj_db = (1/m) * np.sum (errors)
+
+    return dj_dw,dj_db
 
 x_poly = np.column_stack([
     X,
