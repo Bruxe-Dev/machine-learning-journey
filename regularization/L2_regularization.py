@@ -50,15 +50,6 @@ x_poly = np.column_stack([
     X**4
 ])
 
-
-cost = compute_cost_l2(
-    x_poly,
-    Y,
-    W,
-    b,
-    lambda_
-)
-
 def gradient_descent_l2(
     x_poly,
     y,
