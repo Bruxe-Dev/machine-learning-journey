@@ -24,3 +24,11 @@ print(less20.head())
 categories = data['who']
 categories.value_counts().plot(kind='pie')
 plt.show()
+
+# Missing values 
+print(data.isnull().sum())
+
+most_common = data['embarked'].mode()[0]
+data['embarked'].fillna(most_common,inplace=True)
+
+print(data['embarked'].isnull().sum())
