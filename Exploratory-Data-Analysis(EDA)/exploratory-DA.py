@@ -28,7 +28,11 @@ plt.show()
 # Missing values 
 print(data.isnull().sum())
 
-most_common = data['embarked'].mode()[0]
-data['embarked'].fillna(most_common,inplace=True)
+# most_common = data['embarked'].mode()[0]
+# data['embarked'].fillna(most_common,inplace=True)
 
-print(data['embarked'].isnull().sum())
+# print(data['embarked'].isnull().sum())
+
+# scatter plotting
+sb.scatterplot(data=data,x='age',y='fare',hue='class',style='survived')
+plt.show()
