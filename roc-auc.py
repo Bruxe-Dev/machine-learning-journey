@@ -1,6 +1,6 @@
 import numpy as np 
 
-def calculate_model_auc(y_pred,y_true):
+def calculate_model_auc(y_true,y_pred):
     y_true = np.array(y_true)
     y_pred = np.array(y_pred)
 
@@ -22,6 +22,6 @@ def calculate_model_auc(y_pred,y_true):
     return auc
 
 actual_labels = [1, 0, 1, 0]
-predicted_probs = [0.90, 0.10, 0.80, 0.40]
+predicted_probs = [0.90, 0.10, 0.20, 0.40]
 
-print("AUC Score:", calculate_auc(actual_labels, predicted_probs))
+print("AUC Score:", calculate_model_auc(actual_labels, predicted_probs))
