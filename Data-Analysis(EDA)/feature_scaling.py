@@ -1,6 +1,6 @@
 from seaborn import load_dataset
 import pandas as pd 
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 
 data = load_dataset('tips')
 print(data.head())
@@ -21,3 +21,9 @@ stScaler = StandardScaler()
 
 st_num_feats = stScaler.fit_transform(num_feats)
 std_numFeats_df = pd.DataFrame(st_num_feats,columns=st_num_feats.colums())
+
+# Robust Scaler (when data has a lot of outliers)
+
+rob_scaler = RobustScaler()
+
+rob_scaled_feats = rob_scaler.fit_transform(num_feats)
