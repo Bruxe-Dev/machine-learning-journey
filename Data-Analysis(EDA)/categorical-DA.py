@@ -1,5 +1,6 @@
 import pandas as pd 
 import seaborn as sns
+from sklearn.preprocessing import OrdinalEncoder
 import matplotlib.pyplot as plt 
 
 data = sns.load_dataset('titanic')
@@ -14,3 +15,11 @@ map_dict = {
 }
 
 data['class'] = data['class'].map(map_dict)
+
+#Using Ordinal Encoding (through skilearn.preprocessing)
+
+encoder = OrdinalEncoder()
+
+cats_feats = data[['alive','alone']]
+
+cats_feats_encoded = encoder.fit_transform(cats_feats)
