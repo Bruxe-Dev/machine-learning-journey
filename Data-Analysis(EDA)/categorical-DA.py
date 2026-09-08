@@ -23,3 +23,9 @@ encoder = OrdinalEncoder()
 cats_feats = data[['alive','alone']]
 
 cats_feats_encoded = encoder.fit_transform(cats_feats)
+
+# Pandas Dummies
+
+dummies = pd.get_dummies(data['who'], drop_first=True)
+
+data = pd.concat([data.drop('who',axis=1),dummies],axis=1 )
