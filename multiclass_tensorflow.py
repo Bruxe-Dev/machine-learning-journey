@@ -20,8 +20,8 @@ X_test = X_test.astype("float32") / 255.0
 
 model = Sequential ([
     Flatten(input_shape=(28,28)),
-    Dense(units=128, activation ="relu"),
-    Dense(units=64, activation = "relu"),
+    Dense(units=128, activation ="relu", kernel_regularizer=L2(0.01)),
+    Dense(units=64, activation = "relu", kernel_regularizer=L2(0.01)),
     Dense(units=10)
 ])
 
