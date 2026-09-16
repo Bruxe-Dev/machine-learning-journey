@@ -1,31 +1,23 @@
 import pandas as pd 
-import matplotlib.pyplot as plt 
 import seaborn as sb 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 
 vectorizer = CountVectorizer()
 
-df = pd.read_csv("data/spam.csv",encoding='latin-1')[['v1','v2']]
+df = pd.read_csv("data/spam.csv",encoding="latin-1")[['v1',"v2"]]
 
-print(df.head())
+print(f"Dataframe: {df.head()}")
 
 df.columns = ['label','message']
 
-print(df.head())
 X = df['message']
 Y = df['label']
 
-print(Y.value_counts())
-
-X_vector = vectorizer.fit_transform(X)
-print(vectorizer.get_feature_names_out())
-print(X_vector.shape)
-
-X_train,Y_train,X_test,Y_test  = train_test_split(
-    X_vector,
+X_train,Y_train,X_test,Y_test = train_test_split(
+    X,
     Y,
-    test_size=0.2,
+    train_size=0.2,
     random_state=42,
-    stratify=Y
+    stratify=y
 )
