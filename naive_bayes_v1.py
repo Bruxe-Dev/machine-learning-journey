@@ -29,10 +29,3 @@ X_train,Y_train,X_test,Y_test  = train_test_split(
     random_state=42,
     stratify=Y
 )
-
-print(f"Training: ",X_train.shape[0])
-print(f"Testing: ",X_test.shape[0])
-print("\n Training Distribution: ")
-print(Y_train.value_counts())
-print("\n Test Distribution: ")
-print(Y_test.value_counts()) 
