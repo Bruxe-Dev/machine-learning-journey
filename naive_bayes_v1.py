@@ -17,7 +17,7 @@ df.columns = ['label','message']
 X = df['message']
 Y = df['label'].map({'ham':0,'spam':1})
 
-X_train,Y_train,X_test,Y_test = train_test_split(
+X_train,X_test,Y_train,Y_test = train_test_split(
     X,
     Y,
     train_size=0.2,
@@ -45,4 +45,4 @@ plt.title("Connfusion Matrix")
 plt.xlabel("Predicted")
 plt.ylabel("Actual")
 
-print(classification_report(y_test, y_pred))
+print(classification_report(Y_test, y_pred))
