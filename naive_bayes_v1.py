@@ -21,3 +21,6 @@ X_train,Y_train,X_test,Y_test = train_test_split(
     random_state=42,
     stratify=y
 )
+
+x_train_vectors = vectorizer.fit_transform(X_train)
+X_test_vectors = vectorizer.transform(X_test)
