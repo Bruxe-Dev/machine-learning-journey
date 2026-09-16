@@ -12,7 +12,7 @@ print(f"Dataframe: {df.head()}")
 df.columns = ['label','message']
 
 X = df['message']
-Y = df['label']
+Y = df['label'].map({'ham':0,'spam':1})
 
 X_train,Y_train,X_test,Y_test = train_test_split(
     X,
