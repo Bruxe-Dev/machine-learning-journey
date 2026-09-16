@@ -46,3 +46,17 @@ plt.xlabel("Predicted")
 plt.ylabel("Actual")
 
 print(classification_report(Y_test, y_pred))
+
+## Lets test our model on new data(message)
+
+new_messages = [
+    "Congratulations! You got 95 in your math exam.",
+    "Hey, are we still meeting today?"
+]
+
+new_vec = vectorizer.transform(new_messages)
+predictions = nb_model.predict(new_vec)
+
+for msg, pred in zip(new_messages, predictions):
+    label = "Spam" if pred == 1 else "Ham"
+    print(f"Message: '{msg}' => Prediction: {label}")
