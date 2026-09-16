@@ -1,5 +1,6 @@
 import pandas as pd 
 import seaborn as sb 
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
@@ -32,4 +33,16 @@ nb_model.fit(x_train_vectors,Y_train)
 
 y_pred = nb_model.predict(X_test_vectors)
 
-accuracy = accuracy_score(y_pred,Y_test)
+accuracy = accuracy_score(Y_test,y_pred)
+print(f"Accuracy: {accuracy*100:.2f}%")
+
+cm = confusion_matrix(Y_test,y_pred)
+sb.heatmap(cm,annot=True,fmt='d',cmap='Blues',
+            xticklabels=['Ham','Spam'],
+            yticklabels=['Ham','Spam'])
+
+plt.title("Connfusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+
+print(classification_report(y_test, y_pred))
