@@ -2,6 +2,7 @@ import pandas as pd
 import seaborn as sb 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
 vectorizer = CountVectorizer()
 
