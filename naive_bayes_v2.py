@@ -30,11 +30,11 @@ pipeline = Pipeline([
     ('nb', MultinomialNB())
 ])
 
-X_train_vectors = pipeline.fit(X_train,Y_train)
+#X_train_vectors = pipeline.fit(X_train,Y_train)
 #X_test_vectors = pipeline.transform(X_test)
 
 
-pipeline.fit(X_train_vectors,Y_train)
+pipeline.fit(X_train,Y_train)
 y_pred = pipeline.predict(X_test)
 
 accuracy = accuracy_score(Y_test,y_pred)
