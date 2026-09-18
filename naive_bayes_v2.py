@@ -9,6 +9,12 @@ from sklearn.metrics import accuracy_score,confusion_matrix,classification_repor
 
 # vectorizer2 = CountVectorizer()
 
+skf = StratifiedKFold(
+    n_splits=5,
+    shuffle=True,
+    random_state=42
+)
+
 df = pd.read_csv("data/spam.csv",encoding='latin-1')[['v1','v2']]
 
 df.columns = ['label','message']
