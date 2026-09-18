@@ -1,0 +1,59 @@
+import pandas as pd 
+import seaborn as sb 
+import matplotlib.pyplot as plt 
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
+
+vectorizer2 = CountVectorizer()
+
+df = pd.read_csv("data/spam.csv",encoding='latin-1')[['v1','v2']]
+
+df.columns = ['label','message']
+
+X = df['message']
+Y = df['label'].map({'ham':0,"spam":1})
+
+X_train,X_test,Y_train,Y_test = train_test_split(
+    X,
+    Y,
+    train_size=0.2,
+    random_state=42,
+    stratify=Y
+)
+
+X_train_vectors = vectorizer2.fit_transform(X_train)
+X_test_vectors = vectorizer2.transform(X_test)
+
+nb_model = MultinomialNB()
+
+nb_model.fit(X_train_vectors,Y_train)
+y_pred = nb_model.predict(X_test_vectors)
+
+accuracy = accuracy_score(Y_test,y_pred)
+print(f"Accuracy: {accuracy*100:.2f}%")
+
+cm = confusion_matrix(Y_test,y_pred)
+sb.heatmap(cm,annot=True,fmt='d',cmap='Blues',
+            xticklabels=['Ham','Spam'],
+            yticklabels=['Ham','Spam'])
+
+plt.title("Connfusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+
+print(classification_report(Y_test, y_pred))
+
+
+# new_messages = [
+#     "Congratulations! You got 95 in your math exam.",
+#     "Hey, are we still meeting today?"
+# ]
+
+# new_vec = vectorizer.transform(new_messages)
+# predictions = nb_model.predict(new_vec)
+
+# for msg, pred in zip(new_messages, predictions):
+#     label = "Spam" if pred == 1 else "Ham"
+#     print(f"Message: '{msg}' => Prediction: {label}")
