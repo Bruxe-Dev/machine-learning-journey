@@ -43,6 +43,13 @@ pipeline = Pipeline([
 pipeline.fit(X_train,Y_train)
 y_pred = pipeline.predict(X_test)
 
+score = cross_val_score(
+    pipeline,
+    X_train,
+    Y_train,
+    cv=skf
+)
+
 accuracy = accuracy_score(Y_test,y_pred)
 print(f"Accuracy: {accuracy*100:.2f}%")
 
