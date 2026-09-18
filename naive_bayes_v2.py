@@ -33,9 +33,8 @@ pipeline = Pipeline([
 X_train_vectors = pipeline.fit(X_train)
 X_test_vectors = pipeline.transform(X_test)
 
-nb_model = pipeline()
 
-nb_model.fit(X_train_vectors,Y_train)
+pipeline.fit(X_train_vectors,Y_train)
 y_pred = pipeline.predict(X_test_vectors)
 
 accuracy = accuracy_score(Y_test,y_pred)
