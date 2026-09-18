@@ -31,11 +31,11 @@ pipeline = Pipeline([
 ])
 
 X_train_vectors = pipeline.fit(X_train,Y_train)
-X_test_vectors = pipeline.transform(X_test)
+#X_test_vectors = pipeline.transform(X_test)
 
 
 pipeline.fit(X_train_vectors,Y_train)
-y_pred = pipeline.predict(X_test_vectors)
+y_pred = pipeline.predict(X_test)
 
 accuracy = accuracy_score(Y_test,y_pred)
 print(f"Accuracy: {accuracy*100:.2f}%")
