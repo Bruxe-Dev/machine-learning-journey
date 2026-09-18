@@ -2,11 +2,12 @@ import pandas as pd
 import seaborn as sb 
 import matplotlib.pyplot as plt 
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split,StratifiedKFold,cross_val_score
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
 
-vectorizer2 = CountVectorizer()
+# vectorizer2 = CountVectorizer()
 
 df = pd.read_csv("data/spam.csv",encoding='latin-1')[['v1','v2']]
 
@@ -24,13 +25,18 @@ X_train,X_test,Y_train,Y_test = train_test_split(
     stratify=Y
 )
 
-X_train_vectors = vectorizer2.fit_transform(X_train)
-X_test_vectors = vectorizer2.transform(X_test)
+pipeline = Pipeline([
+    ('vectorizer',CountVectorizer()),
+    ('nb', MultinomialNB())
+])
 
-nb_model = MultinomialNB()
+X_train_vectors = pipeline.fit(X_train)
+X_test_vectors = pipeline.transform(X_test)
+
+nb_model = pipeline()
 
 nb_model.fit(X_train_vectors,Y_train)
-y_pred = nb_model.predict(X_test_vectors)
+y_pred = pipeline.predict(X_test_vectors)
 
 accuracy = accuracy_score(Y_test,y_pred)
 print(f"Accuracy: {accuracy*100:.2f}%")
