@@ -1,5 +1,6 @@
 import pandas as pd 
 import seaborn as sb 
+import numpy as np 
 import matplotlib.pyplot as plt 
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
@@ -43,12 +44,17 @@ pipeline = Pipeline([
 pipeline.fit(X_train,Y_train)
 y_pred = pipeline.predict(X_test)
 
-score = cross_val_score(
+scores = cross_val_score(
     pipeline,
     X_train,
     Y_train,
     cv=skf
 )
+
+for score in scores:
+    print(f"Score: {score*100:.2f}% \n")
+
+mean_score = np.sum(scores)/ 5
 
 accuracy = accuracy_score(Y_test,y_pred)
 print(f"Accuracy: {accuracy*100:.2f}%")
@@ -65,14 +71,14 @@ plt.ylabel("Actual")
 print(classification_report(Y_test, y_pred))
 
 
-# new_messages = [
-#     "Congratulations! You got 95 in your math exam.",
-#     "Hey, are we still meeting today?"
-# ]
+new_messages = [
+    "Congratulations! You got 95 in your math exam.",
+    "Hey, are we still meeting today?"
+]
 
-# new_vec = vectorizer.transform(new_messages)
-# predictions = nb_model.predict(new_vec)
+new_vec = pipeline.transform(new_messages)
+predictions = pipeline.predict(new_vec)
 
-# for msg, pred in zip(new_messages, predictions):
-#     label = "Spam" if pred == 1 else "Ham"
-#     print(f"Message: '{msg}' => Prediction: {label}")
+for msg, pred in zip(new_messages, predictions):
+    label = "Spam" if pred == 1 else "Ham"
+    print(f"Message: '{msg}' => Prediction: {label}")
