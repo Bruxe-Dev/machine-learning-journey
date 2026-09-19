@@ -4,8 +4,29 @@ from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras import Input,Sequential
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.regularizers import L2
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.losses import SparseCategoricalCrossentropy
 
 learning_rates = [0.001,0.01]
+
+def build_model(learning_rate):
+    model = Sequential([
+        Flatten(input_shape=(28,28)),
+        Dense(units=128,activation="relu",kernel_regularizer=L2(0.01)),
+        Dense(units=64, activation = "relu", kernel_regularizer=L2(0.01)),
+        Dense(units=10)
+    ])
+
+    model.summary()
+
+    model.compile(
+        optimizer = Adam(
+            learning_rate = learning_rate
+        ),
+        loss= SparseCategoricalCrossentropy(from_logits=True),
+        metrics=["accuracy"]
+    )
+
 
 (X_train,Y_train),(X_test,Y_test) = fashion_mnist.load_data()
 print(f"Shape: {X_train.shape}")
@@ -19,20 +40,3 @@ x_test = X_test[:2000]
 
 x_train_norm = x_train.astype("float32")/ 255.0
 x_test_norm = x_test.astype("float32")/ 255.0
-
-model = Sequential([
-    Flatten(input_shape=(28,28)),
-    Dense(units=128,activation="relu",kernel_regularizer=L2(0.01)),
-    Dense(units=64, activation = "relu", kernel_regularizer=L2(0.01)),
-    Dense(units=10)
-])
-
-model.summary()
-
-model.compile(
-    optimizer = tf.keras.optimizers.Adam(
-        learning_rate = 1e-3
-    ),
-    loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True),
-    metrics = ["accuracy"]
-)
