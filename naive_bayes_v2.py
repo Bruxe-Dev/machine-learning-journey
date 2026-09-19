@@ -50,10 +50,8 @@ scores = cross_val_score(
     cv=skf
 )
 
-for score in scores:
-    print(f"Score: {score*100:.2f}% \n")
-
-mean_score = np.sum(scores)/ 5
+mean_score = sum(scores)/ len(scores)
+print(f"Mean CV score: {mean_score*100:.2f}%")
 
 accuracy = accuracy_score(Y_test,y_pred)
 print(f"Accuracy: {accuracy*100:.2f}%")
@@ -70,14 +68,14 @@ plt.ylabel("Actual")
 print(classification_report(Y_test, y_pred))
 
 
-new_messages = [
-    "Congratulations! You got 95 in your math exam.",
-    "Hey, are we still meeting today?"
-]
+# new_messages = [
+#     "Congratulations! You got 95 in your math exam.",
+#     "Hey, are we still meeting today?"
+# ]
 
-new_vec = pipeline.transform(new_messages)
-predictions = pipeline.predict(new_vec)
+# new_vec = pipeline.transform(new_messages)
+# predictions = pipeline.predict(new_vec)
 
-for msg, pred in zip(new_messages, predictions):
-    label = "Spam" if pred == 1 else "Ham"
-    print(f"Message: '{msg}' => Prediction: {label}")
+# for msg, pred in zip(new_messages, predictions):
+#     label = "Spam" if pred == 1 else "Ham"
+#     print(f"Message: '{msg}' => Prediction: {label}")
