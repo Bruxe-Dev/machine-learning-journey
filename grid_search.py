@@ -1,5 +1,6 @@
 import tensorflow as tf
 import pandas as pd 
+from sklearn.model_selection import StratifiedKFold
 from tensorflow.keras.datasets import fashion_mnist 
 from tensorflow.keras import Input,Sequential
 from tensorflow.keras.layers import Dense, Flatten
@@ -8,6 +9,12 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.losses import SparseCategoricalCrossentropy
 
 learning_rates = [0.001,0.01]
+
+skf = StratifiedKFold(
+    n_splits=5,
+    shuffle=True,
+    random_state=42
+)
 
 def build_model(learning_rate):
     model = Sequential([
@@ -42,6 +49,10 @@ x_test = X_test[:2000]
 
 x_train_norm = x_train.astype("float32")/ 255.0
 x_test_norm = x_test.astype("float32")/ 255.0
+
+for train_index, val_index in skf.split(x_train_norm, Y_train):
+    print(train_index.shape)
+    print(val_index.shape)
 
 model = build_model(0.001)
 model2 = build_model(0.01)
