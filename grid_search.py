@@ -17,7 +17,7 @@ def build_model(learning_rate):
         Dense(units=10)
     ])
 
-    model.summary()
+    #model.summary()
 
     model.compile(
         optimizer = Adam(
@@ -26,6 +26,8 @@ def build_model(learning_rate):
         loss= SparseCategoricalCrossentropy(from_logits=True),
         metrics=["accuracy"]
     )
+
+    return model 
 
 
 (X_train,Y_train),(X_test,Y_test) = fashion_mnist.load_data()
