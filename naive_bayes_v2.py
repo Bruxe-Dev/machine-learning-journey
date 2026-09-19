@@ -1,5 +1,6 @@
 import pandas as pd 
 import seaborn as sb 
+import statistics
 import numpy as np 
 import matplotlib.pyplot as plt 
 from sklearn.naive_bayes import MultinomialNB
@@ -52,6 +53,9 @@ scores = cross_val_score(
 
 mean_score = sum(scores)/ len(scores)
 print(f"Mean CV score: {mean_score*100:.2f}%")
+
+std_score = statistics.stdev(scores)
+print(f"Standard dev score: {std_score*100:.2f}%")
 
 accuracy = accuracy_score(Y_test,y_pred)
 print(f"Accuracy: {accuracy*100:.2f}%")
