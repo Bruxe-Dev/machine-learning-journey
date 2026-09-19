@@ -3,6 +3,9 @@ import pandas as pd
 from tensorflow.keras.datasets import fashion_mnist 
 from tensorflow.keras import Input,Sequential
 from tensorflow.keras.layers import Dense, Flatten
+from tensorflow.keras.regularizers import L2
+
+learning_rates = [0.001,0.01]
 
 (X_train,Y_train),(X_test,Y_test) = fashion_mnist.load_data()
 print(f"Shape: {X_train.shape}")
@@ -12,8 +15,7 @@ print(f"Shape: {Y_test.shape}")
 
 x_train = X_train[:5000]
 Y_train = Y_train[:5000]
-
-#x_test = X_test[:2000]
+x_test = X_test[:2000]
 
 x_train_norm = x_train.astype("float32")/ 255.0
 x_test_norm = x_test.astype("float32")/ 255.0
