@@ -42,3 +42,13 @@ x_test = X_test[:2000]
 
 x_train_norm = x_train.astype("float32")/ 255.0
 x_test_norm = x_test.astype("float32")/ 255.0
+
+model = build_model(0.001)
+model2 = build_model(0.01)
+
+history = model2.fit(
+    x_train_norm,
+    Y_train,
+    epochs=5,
+    validation_split=0.2
+)
