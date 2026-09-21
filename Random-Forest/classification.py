@@ -14,8 +14,6 @@ titanic_data = titanic_data.dropna(subset=["Survived"])
 x = titanic_data[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare']]
 y = titanic_data['Survived']
 
-x['Sex'] = hotEncoder.fit_transform(x[['Sex']])
-
 X_train,X_test,Y_train,Y_test = train_test_split(
     x,
     y,
@@ -23,6 +21,7 @@ X_train,X_test,Y_train,Y_test = train_test_split(
     test_size=0.2
 )
 
+X_train['Sex'] = hotEncoder.fit_transform(X_train[['Sex']])
 X_train['Age'] = X_train['Age'].fillna(X_train['Age'].median())
 
 rf_classifier = RandomForestClassifier(n_estimators=50,random_state=42)
