@@ -1,13 +1,14 @@
 import pandas as pd 
 from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score,classification_report
 import warnings
 
 warnings.filterwarnings('ignore')
-hotEncoder = OneHotEncoder()
+categorical_trans = OneHotEncoder(handle_unknown="ignore")
 
 imputer = SimpleImputer(strategy="median")
 
@@ -25,6 +26,12 @@ numerical_features = [
     'Fare'
 ]
 categorical_features = ["Sex"]
+
+preprocessing = ColumnTransformer(
+    transformers = [
+        ("num", imputer, numerical_features)
+    ]
+)
 
 X_train,X_test,Y_train,Y_test = train_test_split(
     x,
