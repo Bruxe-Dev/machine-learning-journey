@@ -55,6 +55,13 @@ pipeline = Pipeline([
     ("classifier", RandomForestClassifier()) 
 ])
 
+grid_search = GridSearchCV(
+    pipeline,
+    param_grid,
+    cv=5,
+    scoring="accuracy"
+)
+
 #rf_classifier = RandomForestClassifier(n_estimators=50,random_state=42)
 pipeline.fit(X_train,Y_train)
 
