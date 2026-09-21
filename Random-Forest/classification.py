@@ -1,5 +1,6 @@
 import pandas as pd 
 from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score,classification_report
@@ -7,6 +8,8 @@ import warnings
 
 warnings.filterwarnings('ignore')
 hotEncoder = OneHotEncoder()
+
+imputer = SimpleImputer(strategy="median")
 
 titanic_data = pd.read_csv("../data/titanic.csv")
 titanic_data = titanic_data.dropna(subset=["Survived"])
