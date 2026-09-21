@@ -63,9 +63,9 @@ grid_search = GridSearchCV(
 )
 
 #rf_classifier = RandomForestClassifier(n_estimators=50,random_state=42)
-pipeline.fit(X_train,Y_train)
+grid_search.fit(X_train,Y_train)
 
-y_pred = pipeline.predict(X_test)
+y_pred = grid_search.predict(X_test)
 
 accuracy = accuracy_score(Y_test,y_pred)
 classification_rep = classification_report(Y_test,y_pred)
