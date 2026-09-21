@@ -62,7 +62,7 @@ print(f"Accuracy: {accuracy:.2f}")
 print("\nClassification Report:\n", classification_rep)
 
 sample = X_test.iloc[0:1]
-prediction = rf_classifier.predict(sample)
+prediction = pipeline.predict(sample)
 
 sample_dict = sample.iloc[0].to_dict()
 print(f"\nSample Passenger: {sample_dict}")
