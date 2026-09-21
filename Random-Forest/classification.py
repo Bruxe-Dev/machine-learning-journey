@@ -1,12 +1,12 @@
 import pandas as pd 
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score,classification_report
 import warnings
 
 warnings.filterwarnings('ignore')
-le = LabelEncoder()
+hotEncoder = OneHotEncoder()
 
 titanic_data = pd.read_csv("../data/titanic.csv")
 titanic_data = titanic_data.dropna(subset=["Survived"])
@@ -14,7 +14,7 @@ titanic_data = titanic_data.dropna(subset=["Survived"])
 x = titanic_data[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare']]
 y = titanic_data['Survived']
 
-x['Sex'] = le.fit_transform(x['Sex'])
+x['Sex'] = hotEncodero.fit_transform(x['Sex'])
 
 X_train,X_test,Y_train,Y_test = train_test_split(
     x,
