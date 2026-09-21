@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
+from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score,classification_report
 import warnings
@@ -42,12 +43,17 @@ X_train,X_test,Y_train,Y_test = train_test_split(
 )
 
 # X_train['Sex'] = hotEncoder.fit_transform(X_train[['Sex']])
-# X_train['Age'] = X_train['Age'].fillna(X_train['Age'].median())
+# X_train['Age'] = X_train['Age'].fillna(X_train['Age'].median())4
 
-rf_classifier = RandomForestClassifier(n_estimators=50,random_state=42)
-rf_classifier.fit(X_train,Y_train)
+pipeline = Pipeline([
+    "preprocessor",preprocessing,
+    "classifier", RandomForestClassifier() 
+])
 
-y_pred = rf_classifier.predict(X_test)
+#rf_classifier = RandomForestClassifier(n_estimators=50,random_state=42)
+pipeline.fit(X_train,Y_train)
+
+y_pred = pipeline.predict(X_test)
 
 accuracy = accuracy_score(Y_test,y_pred)
 classification_rep = classification_report(Y_test,y_pred)
