@@ -74,8 +74,11 @@ print(f"Accuracy: {accuracy:.2f}")
 print("\nClassification Report:\n", classification_rep)
 
 sample = X_test.iloc[0:1]
-prediction = pipeline.predict(sample)
+prediction = grid_search.predict(sample)
 
 sample_dict = sample.iloc[0].to_dict()
 print(f"\nSample Passenger: {sample_dict}")
 print(f"Predicted Survival: {'Survived' if prediction[0] == 1 else 'Did Not Survive'}")
+
+print(f"The Best params found are: {grid_search.best_params_}")
+print(f"The Best Score is: {grid_search.best_score_}")
