@@ -14,6 +14,15 @@ titanic_data = titanic_data.dropna(subset=["Survived"])
 x = titanic_data[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare']]
 y = titanic_data['Survived']
 
+numerical_features = [
+    'Pclass',
+    'Age',
+    'SibSp',
+    'Parch',
+    'Fare'
+]
+categorical_features = ["Sex"]
+
 X_train,X_test,Y_train,Y_test = train_test_split(
     x,
     y,
