@@ -46,8 +46,8 @@ X_train,X_test,Y_train,Y_test = train_test_split(
 # X_train['Age'] = X_train['Age'].fillna(X_train['Age'].median())4
 
 pipeline = Pipeline([
-    "preprocessor",preprocessing,
-    "classifier", RandomForestClassifier() 
+    ("preprocessor",preprocessing),
+    ("classifier", RandomForestClassifier()) 
 ])
 
 #rf_classifier = RandomForestClassifier(n_estimators=50,random_state=42)
