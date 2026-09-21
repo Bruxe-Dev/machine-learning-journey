@@ -81,4 +81,5 @@ print(f"\nSample Passenger: {sample_dict}")
 print(f"Predicted Survival: {'Survived' if prediction[0] == 1 else 'Did Not Survive'}")
 
 print(f"The Best params found are: {grid_search.best_params_}")
-print(f"The Best Score is: {grid_search.best_score_}")
+print(f"The Best Score is: {grid_search.best_score_}\n")
+print(f"The experiments: {pd.DataFrame(grid_search.cv_results_)}")
