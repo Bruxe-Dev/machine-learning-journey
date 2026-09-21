@@ -1,5 +1,5 @@
 import pandas as pd 
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split,GridSearchCV
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
@@ -18,6 +18,11 @@ titanic_data = titanic_data.dropna(subset=["Survived"])
 
 x = titanic_data[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare']]
 y = titanic_data['Survived']
+
+param_grid ={
+    "classifier__n_estimators": [50, 100, 200],
+    "classifier__max_depth": [5, 10, None]
+}
 
 numerical_features = [
     'Pclass',
