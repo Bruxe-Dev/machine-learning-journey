@@ -28,7 +28,7 @@ class AdaBoost:
             self.models.append(model)
             self.alphas.append(alpha)
 
-            w *= np.exp(-alpha * y * predictions)
+            w *= np.exp(-alpha * Y * predictions)
             w /= np.sum(w)
 
     def predict(self,X):
