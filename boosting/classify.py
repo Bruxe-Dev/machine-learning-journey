@@ -23,7 +23,7 @@ class AdaBoost:
             predictions = model.predict(X)
 
             err = np.sum(w * (predictions != Y)) / np.sum(w)
-            alpha = 0.5 * np.log(1 - err /( err,1e-10))
+            alpha = 0.5 * np.log((1 - err) / max(err, 1e-10))
 
             self.models.append(model)
             self.alphas.append(alpha)
@@ -43,6 +43,7 @@ class AdaBoost:
 
 if __name__ == "__main__":
     X,Y = make_classification(n_samples=1000,n_features=20,n_classes=2,random_state=42)
+    Y = np.where(Y == 1, 1, -1)
     X_train,X_test,y_train,y_test = train_test_split(
         X,
         Y,
