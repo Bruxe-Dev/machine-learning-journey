@@ -23,7 +23,7 @@ class AdaBoost:
             predictions = model.predict(X)
 
             err = np.sum(w * (predictions != Y)) / np.sum(w)
-            alpha = 0.5 * np.log(1 - err / err * 1e-10)
+            alpha = 0.5 * np.log(1 - err /( err,1e-10))
 
             self.models.append(model)
             self.alphas.append(alpha)
