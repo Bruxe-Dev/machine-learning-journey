@@ -12,3 +12,21 @@ class AdaBoost:
         self.n_estimators = n_estimators
         self.models = []
         self.alphas = []
+
+    def fit(self,X,Y):
+        n_samples,n_features = X.shape()
+        w = np.ones(n_features)/n_features
+
+        for _ in range(self.n_estimators):
+            model = DecisionTreeClassifier(max_depth=2)
+            model.fit(X,Y,sample_weight=w)
+            predictions = model.predict(X)
+
+            err = np.sum(w * (predictions != Y)) / np.sum(w)
+            alpha = 0.5 * np.log(1 - err / err * 1e-10)
+
+            self.models.append(model)
+            self.alphas.append(alpha)
+
+            w *= np.exp(-alpha * y * predictions)
+            w /= np.sum(w)
