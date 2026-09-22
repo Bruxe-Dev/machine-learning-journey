@@ -37,3 +37,35 @@ class AdaBoost:
         for model, alpha in zip(self.models,self.alphas):
             prediction = model.predict(X)
             strong_preds += alpha * prediction
+
+        return np.sign(strong_preds).astype(int)
+
+
+if __name__ == "__main__":
+    X,Y = make_classification(n_samples=1000,n_features=20,n_classes=2,random_state=42)
+    X_train,X_test,y_train,y_test = train_test_split(
+        X,
+        Y,
+        test_size=0.3,
+        random_state=42
+    )
+
+    adaboost = AdaBoost(n_estimators=50)
+    adaboost.fit(X_train,y_train)
+
+    predictions = adaboost.predict(X_test)
+
+    accuracy = accuracy_score(y_test,predictions)
+    precision = recall_score(y_test,predictions)
+    f1_score = f1_score(y_test,predictions)
+
+    try:
+        roc_auc = roc_auc_score(y_test,predictions)
+
+    except ValueError:
+        print(f"Underfined (Expects probability score!)")
+
+    print(f"Accuracy: {accuracy}")
+    print(f"Precision: {precision}")
+    print(f"f1_Score: {f1_score}")
+    print(f"ROC_AUC: {roc_auc}")
