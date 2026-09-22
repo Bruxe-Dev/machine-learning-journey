@@ -30,3 +30,10 @@ class AdaBoost:
 
             w *= np.exp(-alpha * y * predictions)
             w /= np.sum(w)
+
+    def predict(self,X):
+        strong_preds = np.zeros(X.shape[0])
+
+        for model, alpha in zip(self.models,self.alphas):
+            prediction = model.predict(X)
+            strong_preds += alpha * prediction
