@@ -15,7 +15,7 @@ class AdaBoost:
 
     def fit(self,X,Y):
         n_samples,n_features = X.shape
-        w = np.ones(n_features)/n_features
+        w = np.ones(n_samples)/n_samples
 
         for _ in range(self.n_estimators):
             model = DecisionTreeClassifier(max_depth=2)
