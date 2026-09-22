@@ -14,7 +14,7 @@ class AdaBoost:
         self.alphas = []
 
     def fit(self,X,Y):
-        n_samples,n_features = X.shape()
+        n_samples,n_features = X.shape
         w = np.ones(n_features)/n_features
 
         for _ in range(self.n_estimators):
