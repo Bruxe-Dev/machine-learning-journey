@@ -6,3 +6,9 @@ from sklearn.datasets import load_iris,make_classification
 import warnings 
 
 warnings.filterwarnings('ignore')
+
+class AdaBoost:
+    def __init__(self, n_estimators=50):
+        self.n_estimators = n_estimators
+        self.models = []
+        self.alphas = []
