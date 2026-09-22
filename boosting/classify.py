@@ -56,7 +56,7 @@ if __name__ == "__main__":
     predictions = adaboost.predict(X_test)
 
     accuracy = accuracy_score(y_test,predictions)
-    precision = recall_score(y_test,predictions)
+    precision = precision_recall_curve(y_test,predictions)
     f1_score = f1_score(y_test,predictions)
 
     try:
