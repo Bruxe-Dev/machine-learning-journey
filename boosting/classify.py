@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     accuracy = accuracy_score(y_test,predictions)
     precision = precision_recall_curve(y_test,predictions)
-    f1_score = f1_score(y_test,predictions)
+    f1 = f1_score(y_test,predictions)
 
     try:
         roc_auc = roc_auc_score(y_test,predictions)
@@ -67,5 +67,5 @@ if __name__ == "__main__":
 
     print(f"Accuracy: {accuracy}")
     print(f"Precision: {precision}")
-    print(f"f1_Score: {f1_score}")
+    print(f"f1_Score: {f1}")
     print(f"ROC_AUC: {roc_auc}")
