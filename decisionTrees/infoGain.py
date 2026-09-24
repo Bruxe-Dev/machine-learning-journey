@@ -1,16 +1,10 @@
 import numpy as np 
 
-y = np.array([
-    "yes", "No", "No", "No", "No", "No",
-    "No", "No", "No", "No"
-])
+def entropy(y):
+    classes,count = np.unique(y,return_counts=True)
+    probabilities = count/len(y)
 
-categories, count = np.unique(y,return_counts=True)
+    return -np.sum(probabilities * np.log2(probabilities))
 
-probabilities = count/len(y)
-
-prob_w = probabilities * np.log2(probabilities)
-
-entropy = -1 * np.sum(prob_w)
-
-print(entropy)
+y = np.array(['yes','yes','yes','yes','yes','yes'])
+print(entropy(y))
