@@ -41,31 +41,27 @@ def information_gain(parent,left,right):
 
     return gain
 
-y = np.array(['yes','no','yes','no','yes','no'])
-left = np.array(['yes','yes','yes','yes'])
-right = np.array(['no','no','no','no','no',])
-
-print(information_gain(y,left,right))
-
 best_gain = -1
+best_feature = None
 best_threshold = None
 
-values = np.sort(np.unique(X[:, 0]))
-thresholds = (values[:-1] + values[1:]) / 2
+for feature in range(X.shape[1]):
 
-for threshold in thresholds:
+    values = np.sort(np.unique(X[:, feature]))
+    thresholds = (values[:-1] + values[1:]) / 2
 
-    left_mask = X[:, 0] < threshold
-    right_mask = ~left_mask
+    for threshold in thresholds:
 
-    y_left = y[left_mask]
-    y_right = y[right_mask]
+        left_mask = X[:, feature] < threshold
+        right_mask = ~left_mask
 
-    gain = information_gain(y, y_left, y_right)
+        y_left = y[left_mask]
+        y_right = y[right_mask]
 
-    if gain > best_gain:
-        best_gain = gain
-        best_threshold = threshold
+        gain = information_gain(y, y_left, y_right)
 
-    print("Best threshold:", best_threshold)
-    print("Best gain:", best_gain)
+        print(
+            "Feature:", feature,
+            "Threshold:", threshold,
+            "Gain:", gain
+        )
