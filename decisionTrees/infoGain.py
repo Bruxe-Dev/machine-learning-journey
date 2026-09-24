@@ -1,5 +1,23 @@
 import numpy as np 
 
+X = np.array([
+    [2,  10],
+    [4,  20],
+    [6,  15],
+    [8,  30],
+    [10, 25],
+    [12, 35]
+])
+
+y = np.array([
+    "No",
+    "No",
+    "Yes",
+    "Yes",
+    "Yes",
+    "Yes"
+])
+
 def entropy(y):
     classes,count = np.unique(y,return_counts=True)
     probabilities = count/len(y)
