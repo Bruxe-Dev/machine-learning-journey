@@ -47,14 +47,20 @@ right = np.array(['no','no','no','no','no',])
 
 print(information_gain(y,left,right))
 
+best_gain = -1
+best_threshold = None
 
-left_mask = X[:, 0] < 7
-right_mask = ~left_mask
+values = np.sort(np.unique(X[:, 0]))
+thresholds = (values[:-1] + values[1:]) / 2
 
-y_left = y[left_mask]
-y_right = y[right_mask]
+for threshold in thresholds:
 
-print(y_left)
-print(y_right)
+    left_mask = X[:, 0] < threshold
+    right_mask = ~left_mask
 
-print(information_gain(y, y_left, y_right))
+    y_left = y[left_mask]
+    y_right = y[right_mask]
+
+    gain = information_gain(y, y_left, y_right)
+
+    print(threshold, gain)
