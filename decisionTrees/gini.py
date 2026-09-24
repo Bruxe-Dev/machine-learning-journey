@@ -1,7 +1,7 @@
 import numpy as np 
 
 y = np.array([
-    "Yes", "Yes", "Yes", "Yes", "Yes", "Yes",
+    "Yes", "Yes", "Yes", "No", "No", "No",
     "No", "No", "No", "No"
 ])
 
