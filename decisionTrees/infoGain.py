@@ -46,3 +46,15 @@ left = np.array(['yes','yes','yes','yes'])
 right = np.array(['no','no','no','no','no',])
 
 print(information_gain(y,left,right))
+
+
+left_mask = X[:, 0] < 7
+right_mask = ~left_mask
+
+y_left = y[left_mask]
+y_right = y[right_mask]
+
+print(y_left)
+print(y_right)
+
+print(information_gain(y, y_left, y_right))
