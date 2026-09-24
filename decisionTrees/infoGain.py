@@ -63,4 +63,9 @@ for threshold in thresholds:
 
     gain = information_gain(y, y_left, y_right)
 
-    print(threshold, gain)
+    if gain > best_gain:
+        best_gain = gain
+        best_threshold = threshold
+
+    print("Best threshold:", best_threshold)
+    print("Best gain:", best_gain)
