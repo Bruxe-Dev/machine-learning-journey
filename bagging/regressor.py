@@ -10,15 +10,15 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split,GridSearchCV
 
 grid_params = {
-    "estimators": [5,10,15,20,25,30,35],
+    "n_estimators": [5,10,15,20,25,30,35],
     "max_depth": [1,3,5,10,15, None]
 }
 
 class BaggingRegressor(BaseEstimator,RegressorMixin):
     def __init__(self,n_estimators,base_regressor,max_depth=None):
-        self.base_regressor = base_regressor,
-        self.n_estimators = n_estimators,
-        self.max_depth = max_depth,
+        self.base_regressor = base_regressor
+        self.n_estimators = n_estimators
+        self.max_depth = max_depth
         self.regressors = []
 
     def fit(self,X,Y):
