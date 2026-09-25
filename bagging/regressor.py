@@ -49,7 +49,7 @@ class BaggingRegressor(BaseEstimator,RegressorMixin):
 if __name__ == "__main__":
     data = load_diabetes()
 
-    X,y = data.data,digits.targs 
+    X,y = data.data,data.target
 
     x_train,x_test,y_train,y_test = train_test_split(
         X,
@@ -63,7 +63,7 @@ if __name__ == "__main__":
             n_estimators=5,
             base_regressor=DecisionTreeRegressor(),
         ),
-        param_grid,
+        grid_params,
         cv=10,
         scoring="accuracy",
         verbose=1
