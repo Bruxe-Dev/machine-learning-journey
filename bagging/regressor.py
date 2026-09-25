@@ -48,7 +48,6 @@ class BaggingRegressor(BaseEstimator,RegressorMixin):
 
 if __name__ == "__main__":
     data = load_diabetes()
-    labels = data.target_names
 
     X,y = data.data,digits.targs 
 
