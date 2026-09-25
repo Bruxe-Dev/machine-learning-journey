@@ -39,11 +39,7 @@ class BaggingRegressor(BaseEstimator,RegressorMixin):
     def predict(self,X):
         predictions = np.array([clf.predict(X) for clf in self.regressors])
 
-        major_votes = np.apply_along_axis(
-            lambda x: np.bincount(x).argmax(),axis=0,err=predictions
-        )
-
-        return major_votes
+        return np.mean(predictions,axis=0)
 
 
 if __name__ == "__main__":
@@ -65,7 +61,7 @@ if __name__ == "__main__":
         ),
         grid_params,
         cv=10,
-        scoring="accuracy",
+        scoring="neg_mean_squared_error",
         verbose=1
     )
 
