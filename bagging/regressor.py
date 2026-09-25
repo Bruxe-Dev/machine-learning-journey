@@ -6,7 +6,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.datasets import load_diabetes
 from sklearn.base import BaseEstimator,RegressorMixin
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import mean_squared_error,r2_score
 from sklearn.model_selection import train_test_split,GridSearchCV
 
 grid_params = {
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     grid_search = GridSearchCV(
         BaggingRegressor(
             n_estimators=5,
-            base_regressor=DecisionTreeRegressor(),
+            base_regressor=DecisionTreeRegressor,
         ),
         grid_params,
         cv=10,
@@ -73,10 +73,11 @@ if __name__ == "__main__":
     best_model = grid_search.best_estimator_
     y_pred = best_model.predict(x_test)
 
-    print(f"Test Accuracy: {accuracy_score(y_test,y_pred)}")
+    print(f"Test Error: {mean_squared_error(y_test,y_pred)}")
+    print(f"Test R²: {r2_score(y_test,y_pred)}")
 
     for i, clf in enumerate(grid_search.best_estimator_.regressors):
         y_pred_i = clf.predict(x_test)
-        acc_score_i = accuracy_score(y_test,y_pred_i)
+        sq_score_i = mean_squared_error(y_test,y_pred_i)
 
-        print(f"Accuracy of {i+1} regressor is: {acc_score_i}")
+        print(f"Error of {i+1} regressor is: {sq_score_i}")
