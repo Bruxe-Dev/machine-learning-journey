@@ -8,7 +8,7 @@ class ManyToOne():
         self.n_hidden = n_hidden
         self.n_output = n_output
 
-        self.wx_h = np.random.randn(n_hidden,n_hidden)
+        self.wx_h = np.random.randn(n_hidden,n_input)
         self.wh_h = np.random.randn(n_hidden,n_hidden)
 
         self.b_h = np.zeros(n_hidden)
@@ -18,8 +18,8 @@ class ManyToOne():
 
 
     def forward(self, X):
-        h = np.zeros(self.hidden_size)
-    
+        h = np.zeros(self.n_hidden)
+
         for x in X:
             z_h = self.wx_h @ x + self.wh_h @ h + self.b_h
             h = np.tanh(z_h)
@@ -27,7 +27,7 @@ class ManyToOne():
         return y
 
 if __name__ == "__main__":
-    rnn_model = ManyToOne(5,7,1)
+    rnn_model = ManyToOne(3,7,1)
     x = np.array([
         [1.0, 2.0, 3.0],
         [2.0, 3.0, 4.0],
