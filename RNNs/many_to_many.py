@@ -27,9 +27,9 @@ class ManyToMany():
            h = np.tanh(z_h)
            y = self.wh_y@h+self.b_y
 
-           outputs.append(y)
+           results.append(y)
 
-        return outputs
+        return results
 
 if __name__ == "__main__":
     mtm_rnn = ManyToMany(
