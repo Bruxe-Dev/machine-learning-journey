@@ -15,7 +15,7 @@ class ManyToMany():
 
         self.b_h = np.zeros(n_hidden)
 
-        self.wh_y  = np.random.randn(n_hidden,n_output)
+        self.wh_y  = np.random.randn(n_output,n_hidden)
         self.b_y = np.zeros(n_output)
 
     def forward_prop(self,X):
