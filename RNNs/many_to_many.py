@@ -1,9 +1,5 @@
 import numpy as np
 
-#from RNNs.one_to_many import outputs
-#from multiclass_numpy import start
-
-
 class ManyToMany():
     def __init__(self,n_input,n_hidden,n_output):
         self.n_input = n_input
@@ -31,6 +27,12 @@ class ManyToMany():
 
         return results
 
+    def loss(self,results,targets):
+        results = np.array(results)
+        losses = 0.5 * np.sum((targets - results)**2)
+
+        return losses
+
 if __name__ == "__main__":
     mtm_rnn = ManyToMany(
         5,
@@ -41,10 +43,18 @@ if __name__ == "__main__":
     x = np.array([
         [1.0, 2.0, 3.0, 4.0, 6.0],
         [2.0, 3.0, 4.0, 6.0, 5.0],
-        [3.0, 4.0, 5.0, 2.0, 3.0]
+        [3.0, 1.0, 2.0, 2.0, 3.0]
     ])
 
+    targets = np.array([
+        np.ones(34),
+        np.ones(34) * 2,
+        np.ones(34) * 3
+    ])
     outputs = mtm_rnn.forward_prop(x)
+    losses = mtm_rnn.loss(outputs,targets)
+
+    print(f"Losses: {losses}")
 
     for i, output in enumerate(outputs,start=1):
         print(f"Output {i} is {output}")
