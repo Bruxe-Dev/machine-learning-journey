@@ -30,10 +30,14 @@ class ManyToMany():
 
         return hidden_states, results
     def backward_prop(self,outputs,hidden_states,targets):
+
+        for i in range(len(hidden_states)):
+            h = hidden_states[i]
+
         dy = outputs - targets
         dw_hy = np.outer(dy, h)
         db = dy
-        dh = self.wh_y.T * dy
+        dh = self.wh_y.T@dy
 
     def loss(self,results,targets):
         results = np.array(results)
