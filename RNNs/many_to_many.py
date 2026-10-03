@@ -40,6 +40,7 @@ class ManyToMany():
             dw_hy = np.outer(dy, h)
             db = dy
             dh = self.wh_y.T@dy
+            dz = dh *(1 - h**2)
 
     def loss(self,results,targets):
         results = np.array(results)
