@@ -17,6 +17,8 @@ class ManyToMany():
     def forward_prop(self,X):
         h = np.zeros(self.n_hidden)
         results = []
+        hidden_states = []
+
 
         for _ in X :
            z_h = self.wx_h@_+self.wh_h@h+self.b_h
@@ -24,8 +26,14 @@ class ManyToMany():
            y = self.wh_y@h+self.b_y
 
            results.append(y)
+           hidden_states.append(h)
 
-        return results
+        return hidden_states, results
+    def backward_prop(self,outputs,hidden_states,targets):
+        dy = outputs - targets
+        dw_hy = np.outer(dy, h)
+        db = dy
+        dh = self.wh_y.T * dy
 
     def loss(self,results,targets):
         results = np.array(results)
@@ -51,7 +59,7 @@ if __name__ == "__main__":
         np.ones(34) * 2,
         np.ones(34) * 3
     ])
-    outputs = mtm_rnn.forward_prop(x)
+    hidden_states,outputs = mtm_rnn.forward_prop(x)
     losses = mtm_rnn.loss(outputs,targets)
 
     print(f"Losses: {losses}")
