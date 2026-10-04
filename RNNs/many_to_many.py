@@ -110,8 +110,8 @@ if __name__ == "__main__":
         np.ones(34) * 2,
         np.ones(34) * 3
     ])
-    epochs = 20
-    learning_rate = 0.01
+    epochs = 2000
+    learning_rate = 0.001
     for epoch in range(epochs):
 
         hidden_states, outputs, inputs, hidden_states_prev = mtm_rnn.forward_prop(x)
