@@ -17,21 +17,32 @@ class ManyToMany():
     def forward_prop(self,X):
         h = np.zeros(self.n_hidden)
         results = []
+        inputs = []
         hidden_states = []
-
+        hidden_states_prev = []
 
         for _ in X :
+           hidden_states_prev.append(h.copy())
            z_h = self.wx_h@_+self.wh_h@h+self.b_h
            h = np.tanh(z_h)
            y = self.wh_y@h+self.b_y
 
+           inputs.append(_)
            results.append(y)
            hidden_states.append(h)
 
-        return hidden_states, results
+        return hidden_states, results,inputs,hidden_states_prev
     def backward_prop(self,outputs,hidden_states,targets):
+        dW_xh = np.zeros_like(self.wx_h)
+        dW_hh = np.zeros_like(self.wh_h)
+        db_h = np.zeros_like(self.b_h)
 
-        for i in range(len(hidden_states)):
+        dW_hy = np.zeros_like(self.wh_y)
+        db_y = np.zeros_like(self.b_y)
+        
+        dh_next  = np.zeros(self.n_hidden)
+
+        for i in reversed(range(len(hidden_states))):
             output = outputs[i]
             target = targets[i]
             h = hidden_states[i]
@@ -39,9 +50,10 @@ class ManyToMany():
             dy = output - target
             dw_hy = np.outer(dy, h)
             db = dy
-            dh = self.wh_y.T@dy
+            dh = self.wh_y.T@dy + dh_next
             dz = dh *(1 - h**2)
 
+            dh_next = self.wh_h.T @ dz
     def loss(self,results,targets):
         results = np.array(results)
         losses = 0.5 * np.sum((targets - results)**2)
@@ -66,7 +78,7 @@ if __name__ == "__main__":
         np.ones(34) * 2,
         np.ones(34) * 3
     ])
-    hidden_states,outputs = mtm_rnn.forward_prop(x)
+    hidden_states,outputs,inputs,hidden_states_prev = mtm_rnn.forward_prop(x)
     losses = mtm_rnn.loss(outputs,targets)
 
     print(f"Losses: {losses}")
