@@ -78,7 +78,7 @@ class ManyToMany():
         dW_hy,
         db_h,
         db_y,
-        learning_rate
+        learning_rate,
     ):
         self.wx_h -= learning_rate * dW_xh
         self.wh_h -= learning_rate * dW_hh
@@ -110,34 +110,32 @@ if __name__ == "__main__":
         np.ones(34) * 2,
         np.ones(34) * 3
     ])
-    hidden_states,outputs,inputs,hidden_states_prev = mtm_rnn.forward_prop(x)
-    loss_before = mtm_rnn.loss(outputs,targets)
+    epochs = 20
+    learning_rate = 0.01
+    for epoch in range(epochs):
 
-    gradients = mtm_rnn.backward_prop(
-    outputs,
-    inputs,
-    hidden_states,
-    targets,
-    hidden_states_prev
-    )
+        hidden_states, outputs, inputs, hidden_states_prev = mtm_rnn.forward_prop(x)
 
-    dW_xh,dW_hh,dW_hy,db_h,db_y = gradients
+        loss = mtm_rnn.loss(outputs, targets)
 
-    learning_rate = 0.001
+        gradients = mtm_rnn.backward_prop(
+            outputs,
+            inputs,
+            hidden_states,
+            targets,
+            hidden_states_prev
+        )
 
-    mtm_rnn.update_weight(
-    dW_xh,
-    dW_hh,
-    dW_hy,
-    db_h,
-    db_y,
-    learning_rate
-    )
+        dW_xh, dW_hh, dW_hy, db_h, db_y = gradients
 
-    _, new_outputs, _, _ = mtm_rnn.forward_prop(x)
+        mtm_rnn.update_weight(
+            dW_xh,
+            dW_hh,
+            dW_hy,
+            db_h,
+            db_y,
+            learning_rate
+        )
 
-    # Loss after update
-    loss_after = mtm_rnn.loss(new_outputs, targets)
-
-    print("Loss before:", loss_before)
-    print("Loss after:", loss_after)
+        if epoch % 10 == 0:
+            print(f"Epoch {epoch}: Loss = {loss}")
