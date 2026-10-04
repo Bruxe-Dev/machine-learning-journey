@@ -105,9 +105,9 @@ if __name__ == "__main__":
 
     gradients = mtm_rnn.backward_prop(
     outputs,
+    inputs,
     hidden_states,
     targets,
-    inputs,
     hidden_states_prev
     )
 
