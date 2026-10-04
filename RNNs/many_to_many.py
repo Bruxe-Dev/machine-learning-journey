@@ -35,6 +35,7 @@ class ManyToMany():
     def backward_prop(
         self,
         outputs,
+        inputs,
         hidden_states,
         targets,
         hidden_states_prev
@@ -101,3 +102,19 @@ if __name__ == "__main__":
 
     for i, output in enumerate(outputs,start=1):
         print(f"Output {i} is {output}")
+
+    gradients = mtm_rnn.backward_prop(
+    outputs,
+    hidden_states,
+    targets,
+    inputs,
+    hidden_states_prev
+    )
+
+    dW_xh,dW_hh,dW_hy,db_h,db_y = gradients
+
+    print("dW_xh:", dW_xh.shape)
+    print("dW_hh:", dW_hh.shape)
+    print("dW_hy:", dW_hy.shape)
+    print("db_h:", db_h.shape)
+    print("db_y:", db_y.shape)
