@@ -32,7 +32,13 @@ class ManyToMany():
            hidden_states.append(h)
 
         return hidden_states, results,inputs,hidden_states_prev
-    def backward_prop(self,outputs,hidden_states,targets):
+    def backward_prop(
+        self,
+        outputs,
+        hidden_states,
+        targets,
+        hidden_states_prev
+        ):
         dW_xh = np.zeros_like(self.wx_h)
         dW_hh = np.zeros_like(self.wh_h)
         db_h = np.zeros_like(self.b_h)
@@ -42,28 +48,28 @@ class ManyToMany():
 
         dh_next  = np.zeros(self.n_hidden)
 
-    for i in reversed(range(len(hidden_states))):
-        output = outputs[i]
-        target = targets[i]
-        h = hidden_states[i]
+        for i in reversed(range(len(hidden_states))):
+            output = outputs[i]
+            target = targets[i]
+            h = hidden_states[i]
 
-        dy = output - target
+            dy = output - target
 
-        dW_hy += np.outer(dy, h)
-        db_y += dy
+            dW_hy += np.outer(dy, h)
+            db_y += dy
 
-        dh = self.wh_y.T @ dy + dh_next
+            dh = self.wh_y.T @ dy + dh_next
 
-        dz = dh * (1 - h**2)
+            dz = dh * (1 - h**2)
 
-        dW_xh += np.outer(dz, inputs[i])
-        dW_hh += np.outer(dz, hidden_states_prev[i])
-        db_h += dz
+            dW_xh += np.outer(dz, inputs[i])
+            dW_hh += np.outer(dz, hidden_states_prev[i])
+            db_h += dz
 
-        dh_next = self.wh_h.T @ dz
+            dh_next = self.wh_h.T @ dz
 
-    return dW_xh,dW_hh,dW_hy,db_h,db_y
-    
+        return dW_xh,dW_hh,dW_hy,db_h,db_y
+
     def loss(self,results,targets):
         results = np.array(results)
         losses = 0.5 * np.sum((targets - results)**2)
