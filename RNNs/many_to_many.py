@@ -71,6 +71,21 @@ class ManyToMany():
 
         return dW_xh,dW_hh,dW_hy,db_h,db_y
 
+    def update_weight(
+        self,
+        dW_xh,
+        dW_hh,
+        dW_hy,
+        db_h,
+        db_y,
+        learning_rate
+    ):
+        self.wx_h -= learning_rate * dW_xh
+        self.wh_h -= learning_rate * dW_hh
+        self.wh_y -= learning_rate * dW_hy
+        self.b_h -= learning_rate * db_h
+        self.b_y -= learning_rate * db_y
+        
     def loss(self,results,targets):
         results = np.array(results)
         losses = 0.5 * np.sum((targets - results)**2)
