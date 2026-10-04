@@ -39,21 +39,31 @@ class ManyToMany():
 
         dW_hy = np.zeros_like(self.wh_y)
         db_y = np.zeros_like(self.b_y)
-        
+
         dh_next  = np.zeros(self.n_hidden)
 
-        for i in reversed(range(len(hidden_states))):
-            output = outputs[i]
-            target = targets[i]
-            h = hidden_states[i]
+    for i in reversed(range(len(hidden_states))):
+        output = outputs[i]
+        target = targets[i]
+        h = hidden_states[i]
 
-            dy = output - target
-            dw_hy = np.outer(dy, h)
-            db = dy
-            dh = self.wh_y.T@dy + dh_next
-            dz = dh *(1 - h**2)
+        dy = output - target
 
-            dh_next = self.wh_h.T @ dz
+        dW_hy += np.outer(dy, h)
+        db_y += dy
+
+        dh = self.wh_y.T @ dy + dh_next
+
+        dz = dh * (1 - h**2)
+
+        dW_xh += np.outer(dz, inputs[i])
+        dW_hh += np.outer(dz, hidden_states_prev[i])
+        db_h += dz
+
+        dh_next = self.wh_h.T @ dz
+
+    return dW_xh,dW_hh,dW_hy,db_h,db_y
+    
     def loss(self,results,targets):
         results = np.array(results)
         losses = 0.5 * np.sum((targets - results)**2)
