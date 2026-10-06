@@ -17,3 +17,12 @@ class LSTM():
 
         return self.sigmoid(z_t)
 
+
+if __name__ == "__main__":
+    lstm = LSTM(n_input=3,n_hidden=4)
+
+    X = np.array([1.0, 2.0, 3.0])
+    hidden_prev = np.array([0.5, 0.2, 0.1, 0.4])
+    
+    forget_values = lstm.forget_gate(X,hidden_prev)
+    print(f"Forget gate: {forget_values}")
