@@ -28,10 +28,10 @@ class LSTM():
         return self.sigmoid(z_t)
 
     def content_cell(self,X,hidden_states_prev):
-        x_hidden_prev = np.concat((X,hidden_prev),axis=0)
+        x_hidden_prev = np.concat((X,hidden_states_prev),axis=0)
 
         z_t = self.w_c @ x_hidden_prev + self.b_c
-        return self.sigmoid(z_t)
+        return np.tanh(z_t)
 
 
 if __name__ == "__main__":
