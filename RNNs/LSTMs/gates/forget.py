@@ -72,6 +72,6 @@ if __name__ == "__main__":
     print(f"Cell state: {cell_state_values}")
     print(f"Forget gate: {forget_values}")
 
-    h_t = output_values * np.tanh(cell_state_values)
+    h_t = output_values * np.tanh(cell_values)
 
     print(f"Output values: {h_t}")
