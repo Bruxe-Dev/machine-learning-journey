@@ -4,7 +4,9 @@ class LSTM():
     def __init__(self,n_input,n_hidden):
         self.n_input = n_input
         self.n_hidden = n_hidden
+        self.w_i = np.random.randn(n_hidden, n_hidden+ n_input)
         self.w_f = np.random.randn(n_hidden, n_hidden + n_input)
+        self.b_i = np.zeros(n_hidden)
         self.b_f = np.zeros(n_hidden)
 
     def sigmoid(self,z_t):
@@ -15,6 +17,12 @@ class LSTM():
 
         z_t = self.w_f @ x_hidden_prev + self.b_f
 
+        return self.sigmoid(z_t)
+
+    def input_gate(self,X,hidden_states_prev):
+        x_hidden_prev = np.concat((X,hidden_states_prev),axis=0)
+
+        z_t = self.w_i @ x_hidden_prev +self.b_i
         return self.sigmoid(z_t)
 
 
