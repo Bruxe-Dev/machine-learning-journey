@@ -7,9 +7,11 @@ class LSTM():
         self.w_c = np.random.randn(n_hidden, n_hidden + n_input)
         self.w_i = np.random.randn(n_hidden, n_hidden + n_input)
         self.w_f = np.random.randn(n_hidden, n_hidden + n_input)
+        self.w_o = np.random.randn(n_hidden, n_hidden + n_input)
         self.b_c = np.zeros(n_hidden)
         self.b_i = np.zeros(n_hidden)
         self.b_f = np.zeros(n_hidden)
+        self.b_o = np.zeros(n_hidden)
 
     def sigmoid(self,z_t):
         return 1 /(1+np.exp(-z_t))
@@ -40,6 +42,12 @@ class LSTM():
 
         return old_memory + new_memory
 
+    def output_gate(self,X,hidden_states_prev):
+        x_hidden_prev = np.concat((X,hidden_states_prev),axis=0)
+
+        z_t = self.w_o @ x_hidden_prev + self.b_o
+        return self.sigmoid(z_t)
+
 if __name__ == "__main__":
     lstm = LSTM(n_input=3,n_hidden=4)
 
@@ -57,7 +65,13 @@ if __name__ == "__main__":
         cell_state_values,
         cell_prev
     )
+    output_values = np.round(lstm.output_gate(X,hidden_prev),4)
+    
     print(f"Input gate: {input_values}")
     print(f"Cell Value: {input_values}")
     print(f"Cell state: {cell_state_values}")
     print(f"Forget gate: {forget_values}")
+
+    h_t = output_values * np.tanh(cell_state_values)
+
+    print(f"Output values: {h_t}")
