@@ -32,5 +32,7 @@ if __name__ == "__main__":
     X = np.array([1.0, 2.0, 3.0])
     hidden_prev = np.array([0.5, 0.2, 0.1, 0.4])
     
+    input_values = np.round(lstm.input_gate(X,hidden_prev),4)
     forget_values = np.round(lstm.forget_gate(X,hidden_prev),4)
+    print(f"Input gate: {input_values}")
     print(f"Forget gate: {forget_values}")
