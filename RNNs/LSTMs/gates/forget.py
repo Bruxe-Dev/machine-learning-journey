@@ -36,7 +36,7 @@ class LSTM():
     def cell_state(self,forget_values,input_values,candidate_values,cell_state_prev):
 
         old_memory = forget_values*cell_state_prev
-        new_memory = input_values*cell_state_values
+        new_memory = input_values*candidate_values
 
         return old_memory + new_memory
 
