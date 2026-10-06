@@ -33,6 +33,12 @@ class LSTM():
         z_t = self.w_c @ x_hidden_prev + self.b_c
         return np.tanh(z_t)
 
+    def cell_state(self,forget_values,input_values,candidate_values,cell_state_prev):
+
+        old_memory = forget_values*cell_state_prev
+        new_memory = input_values*cell_state_values
+
+        return old_memory + new_memory
 
 if __name__ == "__main__":
     lstm = LSTM(n_input=3,n_hidden=4)
