@@ -21,6 +21,7 @@ class LSTM():
         self.b_c = np.zeros(n_hidden)
         self.b_o = np.zeros(n_hidden)
 
+
     def forward_step(self,X):
         x_hidden_prev = np.concatenate((X,self.h_prev),axis=0)
 
@@ -28,3 +29,5 @@ class LSTM():
         f_t = sigmoid(self.w_f @ x_hidden_prev + self.b_f)
         candidate = np.tanh(self.w_c @ x_hidden_prev + self.b_c)
         o_t = sigmoid(self.w_o @ x_hidden_prev + self.b_o)
+
+        c_t = f_t * self.c_prev + i_t * candidate
