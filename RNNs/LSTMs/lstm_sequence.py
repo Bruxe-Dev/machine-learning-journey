@@ -21,7 +21,6 @@ class LSTM():
         self.b_c = np.zeros(n_hidden)
         self.b_o = np.zeros(n_hidden)
 
-
     def forward_step(self,X):
         x_hidden_prev = np.concatenate((X,self.h_prev),axis=0)
 
@@ -31,3 +30,42 @@ class LSTM():
         o_t = sigmoid(self.w_o @ x_hidden_prev + self.b_o)
 
         c_t = f_t * self.c_prev + i_t * candidate
+
+        h_t = o_t * np.tanh(c_t)
+
+        self.c_prev = c_t
+        self.h_prev = h_t
+
+        return c_t,h_t
+
+    def forward(self,X):
+        cell_states = []
+        hidden_states = []
+
+        for x_t in X:
+            c_t,h_t = self.forward_step(x_t)
+
+            cell_states.append(c_t)
+            hidden_states.append(h_t)
+
+        return np.array(cell_states),np.array(hidden_states)
+
+if __name__ == "__main__":
+    lstm = LSTM(
+        n_input=3,
+        n_hidden=4
+    )
+
+    X = np.array([
+        [1.0, 2.0, 3.0],
+        [2.0, 3.0, 4.0],
+        [3.0, 4.0, 5.0],
+
+    ])
+
+    cell_states,hidden_states = lstm.forward(X)
+
+    print(f"The Cell States are: {cell_states}")
+    print(f"The Hidden states: {
+        hidden_states
+    }")
