@@ -72,9 +72,6 @@ if __name__ == "__main__":
 
     ])
 
-    cell_states,hidden_states = lstm.forward(X)
+    caches = lstm.forward(X)
 
-    print(f"The Cell States are: {cell_states}")
-    print(f"The Hidden states: {
-        hidden_states
-    }")
+    print(f"Caches: {caches}")
