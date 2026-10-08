@@ -33,22 +33,31 @@ class LSTM():
 
         h_t = o_t * np.tanh(c_t)
 
+        caches = {
+            X,
+            self.h_prev.copy(),
+            self.c_prev.copy(),
+            i_t,
+            f_t,
+            candidate,
+            o_t,
+            c_t,
+            h_t
+        }
         self.c_prev = c_t
         self.h_prev = h_t
 
-        return c_t,h_t
+        return caches
 
     def forward(self,X):
-        cell_states = []
-        hidden_states = []
+        caches =[]
 
         for x_t in X:
-            c_t,h_t = self.forward_step(x_t)
+            cache = self.forward(x_t)
 
-            cell_states.append(c_t)
-            hidden_states.append(h_t)
+            caches.append(cache)
 
-        return np.array(cell_states),np.array(hidden_states)
+        return caches
 
 if __name__ == "__main__":
     lstm = LSTM(
